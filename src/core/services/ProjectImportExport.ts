@@ -29,6 +29,13 @@ export class ProjectImportExport extends BaseService {
 
     form.append('file', content, defaultMetadata);
     form.append('path', path);
+    if (options) {
+      ['namespace', 'name', 'overwrite', 'overwrite', 'override_params'].forEach(key => {
+        if (key in options) {
+          form.append(key, options[key]);
+        }
+      });
+    }
 
     return RequestHelper.post(this, 'projects/import', { ...options, form });
   }
